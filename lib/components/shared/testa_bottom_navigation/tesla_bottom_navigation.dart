@@ -37,10 +37,10 @@ class TeslaBottomNavigationBar extends StatelessWidget {
   }
 
   List<Map<String, Object>> navIconSrc = [
-    {'lock': {'path': lockImagePath, 'key': 'lock'}},
-    {'charge': {'path': chargeImagePath, 'key': 'charge'}},
-    {'temp': {'path': tempImagePath, 'key': 'temp'}},
-    {'tyre': {'path': tyreImagePath, 'key': 'tyre'}},
+    {'lock': {'path': lockIconPath, 'key': 'lock'}},
+    {'charge': {'path': chargeIconPath, 'key': 'charge'}},
+    {'temp': {'path': tempIconPath, 'key': 'temp'}},
+    {'tyre': {'path': tyreIconPath, 'key': 'tyre'}},
   ];
 
    getObjectImage(Map<String, Object> value) {

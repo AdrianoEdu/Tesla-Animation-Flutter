@@ -34,10 +34,10 @@ class DoorLock extends StatelessWidget {
 
 SvgPicture validatingDoorLock (bool isLock) {
   if(isLock){
-    return getImage(doorLockImagePath, 'lock');
+    return getImage(doorLockIconPath, 'lock');
   }
   else {
-    return getImage(doorUnlockImagePath, 'unlock');
+    return getImage(doorUnlockIconPath, 'unlock');
   }
 }
 

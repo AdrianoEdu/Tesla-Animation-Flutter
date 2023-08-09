@@ -31,7 +31,7 @@ class TempBtn extends StatelessWidget {
             height: getSizeByFlag(isActive, 76, 50),
             width: getSizeByFlag(isActive, 76, 50),
             child: getImageWithColor(
-              coolShapeImagePath,
+              coolShapeIconPath,
               'coolShape',
               getColorByFlag(isActive, activeColor, Colors.white38)
             ),

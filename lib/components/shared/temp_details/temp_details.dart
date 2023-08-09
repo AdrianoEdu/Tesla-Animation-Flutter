@@ -27,14 +27,14 @@ class TempDetails extends StatelessWidget {
               children: [
                 TempBtn(
                   isActive: _controller.isCoolSelected,
-                  svgSrc: coolShapeImagePath,
+                  svgSrc: coolShapeIconPath,
                   title: 'Cool',
                   press: _controller.updateCoolSelectedTab,
                 ),
                 const SizedBox(width: defaultPadding,),
                 TempBtn(
                   isActive: !_controller.isCoolSelected,
-                  svgSrc: heatShapeImagePath,
+                  svgSrc: heatShapeIconPath,
                   title: 'Heat',
                   activeColor: redColor,
                   press: _controller.updateCoolSelectedTab,

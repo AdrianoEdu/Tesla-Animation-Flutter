@@ -7,9 +7,8 @@ import 'package:teslacaranimation/home_controller.dart';
 
 import '../components/shared/battery_status/batteryStatus.dart';
 import '../components/shared/door_lock/door_lock.dart';
-import '../components/shared/enum/enum.dart';
+import '../enum/enum.dart';
 import '../components/shared/testa_bottom_navigation/tesla_bottom_navigation.dart';
-import '../components/shared/tmp_btn/tmp.btn.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}): super(key: key);
@@ -27,6 +26,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
   late AnimationController _tempAnimationController;
   late Animation<double> _animationCarShift;
+  late Animation<double> _animationTempShowInfo;
+  late Animation<double> _animationCoolGlow;
+
+
 
   void setupBatteryAnimation(){
     _batteryAnimationController = AnimationController(
@@ -55,6 +58,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
       parent: _tempAnimationController,
       curve: const Interval(0.2, 0.4),
     );
+
+    _animationTempShowInfo = CurvedAnimation(
+      parent: _tempAnimationController,
+      curve: const Interval(0.45, 0.65),
+    );
+
+    _animationCoolGlow = CurvedAnimation(
+      parent: _tempAnimationController,
+      curve: const Interval(0.7, 1),
+    );
+
   }
 
   @override
@@ -128,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                         padding: EdgeInsets.symmetric(
                           vertical: constraints.maxHeight * 0.1),
                         child: SvgPicture.asset(
-                          carImagePath,
+                          carIconPath,
                           width: double.infinity,
                         ),
                       ),
@@ -136,8 +150,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                     ...ListAnimatedPositioned(_controller, constraints),
                     Opacity(
                       opacity: _animationBattery.value,
-                      child: getImageWithWidth(
-                        batteryImagePath, 'battery',
+                      child: getImageSvgWithWidth(
+                        batteryIconPath, 'battery',
                         constraints.maxWidth * 0.45
                       )
                     ),
@@ -152,7 +166,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                         )
                       ),
                     ),
-                    TempDetails(controller: _controller),
+                    Positioned(
+                      height: constraints.maxHeight,
+                      width:  constraints.maxWidth,
+                      top:  60 * (1 - _animationTempShowInfo.value),
+                      child: Opacity(
+                        opacity: _animationTempShowInfo.value,
+                        child: TempDetails(controller: _controller)),
+                    ),
+                    Positioned(
+                        right: -180 * (1 - _animationCoolGlow.value),
+                        child: AnimatedSwitcher(
+                          duration: defaultDuration,
+                          child: _controller.isCoolSelected ?
+                            Image.asset(coolGlowImagePath, key: UniqueKey(), width: 200):
+                            Image.asset(hootGlowImagePath, key: UniqueKey(), width: 200)
+                        ),
+                      ),
                   ],
                 );
               },
@@ -218,7 +248,7 @@ List<Widget> ListAnimatedPositioned(HomeController controller, BoxConstraints co
   ];
 }
 
-SvgPicture getImageWithWidth (String pathImage, String keyValue, double width){
+SvgPicture getImageSvgWithWidth (String pathImage, String keyValue, double width){
   return SvgPicture.asset(
     pathImage,
     key: ValueKey(keyValue),

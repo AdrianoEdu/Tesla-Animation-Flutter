@@ -9,20 +9,26 @@ const String tyre = 'Tyre.svg';
 const String battery = 'Battery.svg';
 const String coolShape = 'coolShape.svg';
 const String heatShape = 'heatShape.svg';
+const String coolGlow = 'Cool_glow_2.png';
+const String hootGlow = 'Hot_glow_4.png';
 
 //folder path images
 const String assets = 'Assets';
 const String assertsIcon = '$assets/icons';
 const String assertsImages = '$assets/images';
 
-//image paths
-const String doorLockImagePath = '$assertsIcon/$lockDoor';
-const String doorUnlockImagePath = '$assertsIcon/$unlockDoor';
-const String carImagePath = '$assertsIcon/$car';
-const String lockImagePath = '$assertsIcon/$lock';
-const String chargeImagePath = '$assertsIcon/$charge';
-const String tempImagePath = '$assertsIcon/$temp';
-const String tyreImagePath = '$assertsIcon/$tyre';
-const String batteryImagePath = '$assertsIcon/$battery';
-const String coolShapeImagePath = '$assertsIcon/$coolShape';
-const String heatShapeImagePath = '$assertsIcon/$heatShape';
+//icon paths
+const String doorLockIconPath = '$assertsIcon/$lockDoor';
+const String doorUnlockIconPath = '$assertsIcon/$unlockDoor';
+const String carIconPath = '$assertsIcon/$car';
+const String lockIconPath = '$assertsIcon/$lock';
+const String chargeIconPath = '$assertsIcon/$charge';
+const String tempIconPath = '$assertsIcon/$temp';
+const String tyreIconPath = '$assertsIcon/$tyre';
+const String batteryIconPath = '$assertsIcon/$battery';
+const String coolShapeIconPath = '$assertsIcon/$coolShape';
+const String heatShapeIconPath = '$assertsIcon/$heatShape';
+
+//images paths
+const String coolGlowImagePath = '$assertsImages/$coolGlow';
+const String hootGlowImagePath = '$assertsImages/$hootGlow';
