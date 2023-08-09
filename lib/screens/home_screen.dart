@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:teslacaranimation/components/shared/temp_details/temp_details.dart';
 import 'package:teslacaranimation/constanins.dart';
 import 'package:teslacaranimation/constants/Images.dart';
 import 'package:teslacaranimation/home_controller.dart';
@@ -151,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                         )
                       ),
                     ),
-                    ...ListTempBtn(_controller),
+                    TempDetails(controller: _controller),
                   ],
                 );
               },
@@ -217,24 +218,6 @@ List<Widget> ListAnimatedPositioned(HomeController controller, BoxConstraints co
   ];
 }
 
-// ignore: non_constant_identifier_names
-List<Widget> ListTempBtn(HomeController controller) {
-  return [
-    TempBtn(
-      isActive: controller.isCoolSelected,
-      svgSrc: coolShapeImagePath,
-      title: 'Cool',
-      press: controller.updateCoolSelectedTab,
-    ),
-    const SizedBox(width: defaultPadding,),
-    TempBtn(
-      isActive: controller.isCoolSelected,
-      svgSrc: heatShapeImagePath,
-      title: 'Heat',
-      press: controller.updateCoolSelectedTab,
-    )
-  ];
-}
 SvgPicture getImageWithWidth (String pathImage, String keyValue, double width){
   return SvgPicture.asset(
     pathImage,

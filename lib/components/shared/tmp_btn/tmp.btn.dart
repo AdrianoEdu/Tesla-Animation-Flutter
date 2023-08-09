@@ -33,7 +33,7 @@ class TempBtn extends StatelessWidget {
             child: getImageWithColor(
               coolShapeImagePath,
               'coolShape',
-              getColorByFlag(isActive, primaryColor, Colors.white38)
+              getColorByFlag(isActive, activeColor, Colors.white38)
             ),
           ),
           const SizedBox(height: defaultPadding / 2),
@@ -41,7 +41,7 @@ class TempBtn extends StatelessWidget {
             duration: const Duration(milliseconds: 200),
             style: TextStyle(
               fontSize: 16,
-              color: getColorByFlag(isActive, primaryColor, Colors.white38),
+              color: getColorByFlag(isActive, activeColor, Colors.white38),
               fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
             ),
             child: Text(
