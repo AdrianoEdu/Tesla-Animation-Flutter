@@ -5,6 +5,7 @@ class HomeController extends ChangeNotifier {
     bool isLeftDoorLock = true;
     bool isBonnetLock = true;
     bool isTrunkLock = true;
+    bool isCoolSelected = true;
 
     int selectedBottomTab = 0;
 
@@ -31,6 +32,11 @@ class HomeController extends ChangeNotifier {
 
     void updateTrunkDoorLock(){
       isTrunkLock = !isTrunkLock;
+      notifyListeners();
+    }
+
+    void updateCoolSelectedTab(){
+      isCoolSelected = !isCoolSelected;
       notifyListeners();
     }
 }

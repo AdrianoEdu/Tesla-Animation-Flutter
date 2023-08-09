@@ -6,6 +6,9 @@ const String lock = 'Lock.svg';
 const String charge = 'Charge.svg';
 const String temp = 'Temp.svg';
 const String tyre = 'Tyre.svg';
+const String battery = 'Battery.svg';
+const String coolShape = 'coolShape.svg';
+const String heatShape = 'heatShape.svg';
 
 //folder path images
 const String assets = 'Assets';
@@ -20,3 +23,6 @@ const String lockImagePath = '$assertsIcon/$lock';
 const String chargeImagePath = '$assertsIcon/$charge';
 const String tempImagePath = '$assertsIcon/$temp';
 const String tyreImagePath = '$assertsIcon/$tyre';
+const String batteryImagePath = '$assertsIcon/$battery';
+const String coolShapeImagePath = '$assertsIcon/$coolShape';
+const String heatShapeImagePath = '$assertsIcon/$heatShape';

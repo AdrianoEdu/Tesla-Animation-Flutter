@@ -32,7 +32,7 @@ class TeslaBottomNavigationBar extends StatelessWidget {
             label: ''
           );
         }
-        )
+      )
     );
   }
 
