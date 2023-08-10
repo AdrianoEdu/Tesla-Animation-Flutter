@@ -4,6 +4,7 @@ import 'package:teslacaranimation/components/shared/temp_details/temp_details.da
 import 'package:teslacaranimation/constanins.dart';
 import 'package:teslacaranimation/constants/Images.dart';
 import 'package:teslacaranimation/home_controller.dart';
+import 'package:teslacaranimation/model/TyrePsi.dart';
 
 import '../components/shared/battery_status/batteryStatus.dart';
 import '../components/shared/door_lock/door_lock.dart';
@@ -188,13 +189,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                     if (_controller.isShowTyre)...tyres(constraints),
                     GridView.builder(
                       itemCount: 4,
+                      physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: defaultPadding,
                         crossAxisSpacing: defaultPadding,
                         childAspectRatio: constraints.maxWidth / constraints.maxHeight,
                       ),
-                      itemBuilder: (context, index) => TyrePsiCard(),
+                      itemBuilder: (context, index) => TyrePsiCard(
+                        isBottomTwoTyre:
+                        index > 1,
+                        tyrePsi: demoPsiList[index]
+                      ),
                       )
                   ],
                 );
@@ -209,69 +215,100 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
 class TyrePsiCard extends StatelessWidget {
   const TyrePsiCard({
-    super.key,
-  });
+    Key? key,
+    required this.isBottomTwoTyre,
+    required this.tyrePsi,
+  }): super(key: key);
+
+  final bool isBottomTwoTyre;
+  final TyrePsi tyrePsi;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
-        color: Colors.white10,
+        color: tyrePsi.isLowPressure ? redColor.withOpacity(0.1) : Colors.white10,
         border: Border.all(
-          color: primaryColor,
+          color: tyrePsi.isLowPressure ? redColor : primaryColor,
           width: 2,
         ),
         borderRadius: const BorderRadius.all(Radius.circular((6))),
 
       ),
-    child: Column(
+    child: isBottomTwoTyre
+    ? Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text.rich(
-          TextSpan(
-            text: '23.6',
-            style: Theme.of(context)
-                .textTheme
-                .headline4!
-                .copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-            children: const [
-              TextSpan(
-                text: 'psi',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                )
-              ),
-            ],
-          ),
-        ),
+        lowPressureText(context),
+        const Spacer(),
+        psiText(context, psi: tyrePsi.psi.toString()),
         const SizedBox(height: defaultPadding),
-        const Text(
-          '41\u2103',
-          style: TextStyle(fontSize:16 , color: Colors.white),
+        Text(
+          '${tyrePsi.temp}\u2103',
+          style: const TextStyle(fontSize:16 , color: Colors.white),
+        ),
+      ]
+    )
+    : Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        psiText(context, psi: tyrePsi.psi.toString()),
+        const SizedBox(height: defaultPadding),
+        Text(
+          '${tyrePsi.temp}\u2103',
+          style: const TextStyle(fontSize:16 , color: Colors.white),
         ),
         const Spacer(),
+        lowPressureText(context),
+      ],
+    ),
+    );
+  }
+
+  Column lowPressureText(BuildContext context) {
+    return Column(
+      children: [
         Text(
-          'LOW',
-          style: Theme.of(context)
-              .textTheme
-              .headline3!
-              .copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600
-              ),
-        ),
-        const Text(
+            'LOW',
+            style: Theme.of(context)
+                .textTheme
+                .headline3!
+                .copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600
+                ),
+          ),
+          const Text(
           'PRESSURE',
           style: TextStyle(fontSize: 20, color: Colors.white),
         )
       ],
-    ),
     );
+  }
+
+  Text psiText(BuildContext context, {required String psi}) {
+    return Text.rich(
+        TextSpan(
+          text: psi,
+          style: Theme.of(context)
+              .textTheme
+              .headline4!
+              .copyWith(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+          children: const [
+            TextSpan(
+              text: 'psi',
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+              )
+            ),
+          ],
+        ),
+      );
   }
 }
 
