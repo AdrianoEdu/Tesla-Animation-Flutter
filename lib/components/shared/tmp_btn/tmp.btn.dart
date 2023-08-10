@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../constanins.dart';
+import '../../../constants.dart';
 import '../../../constants/Images.dart';
 
 class TempBtn extends StatelessWidget {

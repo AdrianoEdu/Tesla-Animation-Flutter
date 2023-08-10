@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:teslacaranimation/components/shared/temp_details/temp_details.dart';
-import 'package:teslacaranimation/constanins.dart';
 import 'package:teslacaranimation/constants/Images.dart';
 import 'package:teslacaranimation/home_controller.dart';
 import 'package:teslacaranimation/model/TyrePsi.dart';
 
+import '../constants.dart';
 import '../components/shared/battery_status/batteryStatus.dart';
 import '../components/shared/door_lock/door_lock.dart';
 import '../components/shared/tyre_psi_card/tyre_psi_card.dart';
@@ -268,61 +268,61 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
   }
 }
 
-// ignore: non_constant_identifier_names
-List<Widget> ListAnimatedPositioned(HomeController controller, BoxConstraints constraints) {
-  return [
-    AnimatedPositioned(
+AnimatedPositioned getAnimation(int index, HomeController controller, BoxConstraints constraints)
+{
+
+  var (lockPosition, setStateLockPosition) = getByPosition(index, controller);
+  return AnimatedPositioned(
+    duration: defaultDuration,
+    right: getAnimatenPositionWidth(controller.selectedBottomTab, getValuePositionRight(index), 2, constraints),
+    left: getAnimatenPositionWidth(controller.selectedBottomTab, getValuePositionLeft(index), 2, constraints),
+    top: getAnimatenPositionHeight(controller.selectedBottomTab, getValuePositionTop(index), 2, constraints),
+    bottom: getAnimatenPositionHeight(controller.selectedBottomTab, getValuePositionBottom(index), 2, constraints),
+    child: AnimatedOpacity(
       duration: defaultDuration,
-        right: getAnimatenPositionWidth(controller.selectedBottomTab, 0.05, 2, constraints),
-        child: AnimatedOpacity(
-          duration: defaultDuration,
-          opacity: getOpacity(controller.selectedBottomTab),
-          child: DoorLock(
-            isLock: controller.isRightDoorLock,
-            press: controller.updateRightDoorLock,
-          ),
-        ),
+      opacity: getOpacity(controller.selectedBottomTab),
+      child: DoorLock(
+        isLock: lockPosition,
+        press: setStateLockPosition,
       ),
-      AnimatedPositioned(
-        duration: defaultDuration,
-        left: getAnimatenPositionWidth(controller.selectedBottomTab, 0.05, 2, constraints),
-        child: AnimatedOpacity(
-          duration: defaultDuration,
-          opacity: getOpacity(controller.selectedBottomTab),
-          child: DoorLock(
-            isLock: controller.isLeftDoorLock,
-            press: controller.updateLeftDoorLock,
-          ),
-        ),
-      ),
-      AnimatedPositioned(
-        duration: defaultDuration,
-        top: getAnimatenPositionHeight(controller.selectedBottomTab, 0.15, 2, constraints),
-        child: AnimatedOpacity(
-          duration: defaultDuration,
-          opacity: getOpacity(controller.selectedBottomTab),
-          child: DoorLock(
-            isLock: controller.isBonnetLock,
-            press: controller.updateBonnetDoorLock,
-          ),
-        ),
-      ),
-      AnimatedPositioned(
-        duration: defaultDuration,
-        bottom: getAnimatenPositionHeight(controller.selectedBottomTab, 0.17, 2, constraints),
-        child: AnimatedOpacity(
-          duration: defaultDuration,
-          opacity: getOpacity(controller.selectedBottomTab),
-          child: DoorLock(
-            isLock: controller.isTrunkLock,
-            press: controller.updateTrunkDoorLock,
-          ),
-        ),
-      ),
-  ];
+    ),
+  );
 }
 
+double? getValuePositionRight(int index) {
+  if(index == PositionLocks.RIGHT.index) return 0.05;
+  return null;
+}
 
+double? getValuePositionLeft(int index) {
+  if(index == PositionLocks.LEFT.index) return 0.05;
+  return null;
+}
+
+double? getValuePositionTop(int index) {
+  if(index == PositionLocks.TOP.index) return 0.15;
+  return null;
+}
+
+double? getValuePositionBottom(int index) {
+  if(index == PositionLocks.BOTTOM.index) return 0.17;
+  return null;
+}
+
+(bool, dynamic) getByPosition(int index, HomeController controller) {
+  if(index == PositionLocks.RIGHT.index) return (controller.isRightDoorLock, controller.updateRightDoorLock);
+  if(index == PositionLocks.LEFT.index) return (controller.isLeftDoorLock, controller.updateLeftDoorLock);
+  if(index == PositionLocks.TOP.index) return (controller.isBonnetLock, controller.updateBonnetDoorLock);
+
+  return (controller.isTrunkLock, controller.updateTrunkDoorLock);
+}
+
+// ignore: non_constant_identifier_names
+List<Widget> ListAnimatedPositioned(HomeController controller, BoxConstraints constraints) {
+  return List.generate(
+        4, (index) => getAnimation(index, controller, constraints)
+    );
+}
 
 SvgPicture getImageSvgWithWidth (String pathImage, String keyValue, double width){
   return SvgPicture.asset(
@@ -331,13 +331,15 @@ SvgPicture getImageSvgWithWidth (String pathImage, String keyValue, double width
     width: width,);
 }
 
-double getAnimatenPositionWidth(int index, double multiply, double divide, BoxConstraints constraints){
+double? getAnimatenPositionWidth(int index, double? multiply, double divide, BoxConstraints constraints){
+    if(multiply == null) return null;
     if(index == 0) return constraints.maxWidth * multiply;
 
     return constraints.maxWidth / divide;
 }
 
-double getAnimatenPositionHeight(int index, double multiply, double divide, BoxConstraints constraints){
+double? getAnimatenPositionHeight(int index, double? multiply, double divide, BoxConstraints constraints){
+    if(multiply == null) return null;
     if(index == 0) return constraints.maxHeight * multiply;
 
     return constraints.maxHeight / divide;

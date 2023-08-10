@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teslacaranimation/home_controller.dart';
 
-import '../../../constanins.dart';
+import '../../../constants.dart';
 import '../../../constants/Images.dart';
 import '../tmp_btn/tmp.btn.dart';
 

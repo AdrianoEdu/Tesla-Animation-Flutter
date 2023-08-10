@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:teslacaranimation/constanins.dart';
 
+import '../../../constants.dart';
 import '../../../constants/Images.dart';
 import '../../../model/ImagePath.dart';
 
@@ -26,7 +26,7 @@ class TeslaBottomNavigationBar extends StatelessWidget {
       items: List.generate(
         navIconSrc.length,
         (index) {
-          ImagePath imagePath = getObjectImage(navIconSrc.elementAt(index));
+          ImagePath imagePath = navIconSrc.elementAt(index);
           return BottomNavigationBarItem(
             icon: getImageSelect(imagePath.path, imagePath.key, index, selectTab),
             label: ''
@@ -36,16 +36,14 @@ class TeslaBottomNavigationBar extends StatelessWidget {
     );
   }
 
-  List<Map<String, Object>> navIconSrc = [
-    {'lock': {'path': lockIconPath, 'key': 'lock'}},
-    {'charge': {'path': chargeIconPath, 'key': 'charge'}},
-    {'temp': {'path': tempIconPath, 'key': 'temp'}},
-    {'tyre': {'path': tyreIconPath, 'key': 'tyre'}},
+  List<ImagePath> navIconSrc = [
+    ImagePath(lockIconPath, 'lock'),
+    ImagePath(chargeIconPath, 'charge'),
+    ImagePath(tempIconPath, 'temp'),
+    ImagePath(tyreIconPath, 'temp'),
+    ImagePath(bluetoothIconPath, 'bluetooth'),
   ];
 
-   getObjectImage(Map<String, Object> value) {
-    dynamic json = value.entries.first.value;
-    return ImagePath.fromJson(json);
   }
 
   SvgPicture getImageSelect (String pathImage, String keyValue, int index, int select){
@@ -53,6 +51,7 @@ class TeslaBottomNavigationBar extends StatelessWidget {
     pathImage,
     key: ValueKey(keyValue),
     color: index == select ? primaryColor : Colors.white54,
+    width: 40,
+    height: 40,
   );
-}
 }
