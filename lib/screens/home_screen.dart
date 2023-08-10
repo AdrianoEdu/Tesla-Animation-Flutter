@@ -186,6 +186,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                         ),
                       ),
                     if (_controller.isShowTyre)...tyres(constraints),
+                    GridView.builder(
+                      itemCount: 4,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: defaultPadding,
+                        crossAxisSpacing: defaultPadding,
+                        childAspectRatio: constraints.maxWidth / constraints.maxHeight,
+                      ),
+                      itemBuilder: (context, index) => TyrePsiCard(),
+                      )
                   ],
                 );
               },
@@ -193,6 +203,74 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
           ),
         );
       }
+    );
+  }
+}
+
+class TyrePsiCard extends StatelessWidget {
+  const TyrePsiCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: BoxDecoration(
+        color: Colors.white10,
+        border: Border.all(
+          color: primaryColor,
+          width: 2,
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular((6))),
+
+      ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text.rich(
+          TextSpan(
+            text: '23.6',
+            style: Theme.of(context)
+                .textTheme
+                .headline4!
+                .copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+            children: const [
+              TextSpan(
+                text: 'psi',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                )
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: defaultPadding),
+        const Text(
+          '41\u2103',
+          style: TextStyle(fontSize:16 , color: Colors.white),
+        ),
+        const Spacer(),
+        Text(
+          'LOW',
+          style: Theme.of(context)
+              .textTheme
+              .headline3!
+              .copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w600
+              ),
+        ),
+        const Text(
+          'PRESSURE',
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        )
+      ],
+    ),
     );
   }
 }
