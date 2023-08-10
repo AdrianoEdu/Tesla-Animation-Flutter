@@ -7,6 +7,7 @@ import 'package:teslacaranimation/home_controller.dart';
 
 import '../components/shared/battery_status/batteryStatus.dart';
 import '../components/shared/door_lock/door_lock.dart';
+import '../components/shared/tyres/tyres.dart';
 import '../enum/enum.dart';
 import '../components/shared/testa_bottom_navigation/tesla_bottom_navigation.dart';
 
@@ -120,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
               selectShowHideAnimationLock(index);
               selectShowHideAnimationBattery(index);
 
+              _controller.showTyreController(index);
               _controller.onBottomnavigationChange(index);
             },
             selectTab: _controller.selectedBottomTab,
@@ -183,6 +185,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                             Image.asset(hootGlowImagePath, key: UniqueKey(), width: 200)
                         ),
                       ),
+                    if (_controller.isShowTyre)...tyres(constraints),
                   ],
                 );
               },
@@ -247,6 +250,8 @@ List<Widget> ListAnimatedPositioned(HomeController controller, BoxConstraints co
       ),
   ];
 }
+
+
 
 SvgPicture getImageSvgWithWidth (String pathImage, String keyValue, double width){
   return SvgPicture.asset(

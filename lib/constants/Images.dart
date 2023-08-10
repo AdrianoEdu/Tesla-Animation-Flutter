@@ -11,6 +11,7 @@ const String coolShape = 'coolShape.svg';
 const String heatShape = 'heatShape.svg';
 const String coolGlow = 'Cool_glow_2.png';
 const String hootGlow = 'Hot_glow_4.png';
+const String flTyre= 'FL_Tyre.svg';
 
 //folder path images
 const String assets = 'Assets';
@@ -28,6 +29,7 @@ const String tyreIconPath = '$assertsIcon/$tyre';
 const String batteryIconPath = '$assertsIcon/$battery';
 const String coolShapeIconPath = '$assertsIcon/$coolShape';
 const String heatShapeIconPath = '$assertsIcon/$heatShape';
+const String flTyreImagePath = '$assertsIcon/$flTyre';
 
 //images paths
 const String coolGlowImagePath = '$assertsImages/$coolGlow';
