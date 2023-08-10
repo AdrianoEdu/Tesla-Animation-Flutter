@@ -7,8 +7,24 @@ class HomeController extends ChangeNotifier {
     bool isTrunkLock = true;
     bool isCoolSelected = true;
     bool isShowTyre = false;
+    bool isShowTyreStatus = false;
 
     int selectedBottomTab = 0;
+
+    void tyreStatusController(index)
+    {
+      if(selectedBottomTab != 3 && index == 3) {
+        isShowTyreStatus = true;
+        notifyListeners();
+      }
+      else
+      {
+        Future.delayed(const Duration(milliseconds: 800), () {
+          isShowTyreStatus = false;
+          notifyListeners();
+        });
+      }
+    }
 
     void showTyreController(int index) {
       if (selectedBottomTab != 3 && index == 3) {
