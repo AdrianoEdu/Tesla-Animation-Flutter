@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:teslacaranimation/components/shared/temp_details/temp_details.dart';
 import 'package:teslacaranimation/constants/Images.dart';
-import 'package:teslacaranimation/home_controller.dart';
 import 'package:teslacaranimation/model/TyrePsi.dart';
+import 'package:teslacaranimation/screens/bluetooth_screen.dart';
 
-import '../constants.dart';
+import '../components/controller/home_controller/home_controller.dart';
+import '../constants/constants.dart';
 import '../components/shared/battery_status/batteryStatus.dart';
 import '../components/shared/door_lock/door_lock.dart';
 import '../components/shared/tyre_psi_card/tyre_psi_card.dart';
@@ -37,8 +38,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
   late Animation<double> _animationTyrePs2;
   late Animation<double> _animationTyrePs3;
   late Animation<double> _animationTyrePs4;
-
   late List<Animation<double>> _tyreAnimations;
+
+  late AnimationController _bluetoothAnimationController;
+  late Animation<double> _animationBluetooth;
 
   void setupBatteryAnimation(){
     _batteryAnimationController = AnimationController(
@@ -104,6 +107,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
     );
   }
 
+  void setupBluetoothAnimation() {
+    _bluetoothAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+
+    _animationBluetooth = CurvedAnimation(
+      parent: _bluetoothAnimationController,
+      curve: const Interval(0, 0.5),
+    );
+  }
+
   @override
   void initState() {
     setupBatteryAnimation();
@@ -115,6 +130,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
       _animationTyrePs3,
       _animationTyrePs4,
     ];
+    setupBluetoothAnimation();
     super.initState();
   }
 
@@ -123,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
     _batteryAnimationController.dispose();
     _tempAnimationController.dispose();
     _tyreAnimationcontroller.dispose();
+    _bluetoothAnimationController.dispose();
     super.dispose();
   }
 
@@ -148,12 +165,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
       }
     }
 
-    void selectShowHideAnimationTyre(index) {
+    void selectShowHideAnimationTyre(int index) {
       if (index == BottomNavigationBarIndex.TYRE.index) {
         _tyreAnimationcontroller.forward();
       }
       if(_controller.selectedBottomTab == 3 && index != 3) {
         _tyreAnimationcontroller.reverse();
+      }
+    }
+
+    void selectShowHideAnimationBluetooth(int index) {
+      if (index == BottomNavigationBarIndex.BLUETOOTH.index) {
+        _bluetoothAnimationController.forward();
+      }
+      if(_controller.selectedBottomTab == 4 && index != 4) {
+        _bluetoothAnimationController.reverse();
       }
     }
 
@@ -171,6 +197,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
               selectShowHideAnimationLock(index);
               selectShowHideAnimationBattery(index);
               selectShowHideAnimationTyre(index);
+              selectShowHideAnimationBluetooth(index);
 
               _controller.showTyreController(index);
               _controller.tyreStatusController(index);
@@ -256,7 +283,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                           tyrePsi: demoPsiList[index]
                         ),
                       ),
-                      )
+                    ),
+                    Positioned(
+                      right: 200 * (1 - _animationBluetooth.value), //preciso de um controller animation -1,
+                      width: constraints.maxWidth,
+                      height: constraints.maxHeight,
+                      child: Opacity(
+                        opacity: _bluetoothAnimationController.value,
+                        child: const BluetoothScreen(),
+                      ),
+                    )
                   ],
                 );
               },

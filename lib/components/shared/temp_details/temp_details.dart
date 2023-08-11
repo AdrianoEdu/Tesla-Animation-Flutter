@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:teslacaranimation/home_controller.dart';
 
-import '../../../constants.dart';
+import '../../../constants/constants.dart';
 import '../../../constants/Images.dart';
+import '../../controller/home_controller/home_controller.dart';
 import '../tmp_btn/tmp.btn.dart';
 
 class TempDetails extends StatelessWidget {

@@ -8,6 +8,7 @@ class HomeController extends ChangeNotifier {
     bool isCoolSelected = true;
     bool isShowTyre = false;
     bool isShowTyreStatus = false;
+    bool isScanBluetooth = false;
 
     int selectedBottomTab = 0;
 

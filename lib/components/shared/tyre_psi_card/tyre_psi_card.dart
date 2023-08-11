@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
+import '../../../constants/constants.dart';
 import '../../../model/TyrePsi.dart';
 
 class TyrePsiCard extends StatelessWidget {
@@ -26,34 +26,37 @@ class TyrePsiCard extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular((6))),
 
       ),
-    child: isBottomTwoTyre
-    ? Column(
+    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        lowPressureText(context),
-        const Spacer(),
-        psiText(context, psi: tyrePsi.psi.toString()),
-        const SizedBox(height: defaultPadding),
-        Text(
-          '${tyrePsi.temp}\u2103',
-          style: const TextStyle(fontSize:16 , color: Colors.white),
-        ),
-      ]
-    )
-    : Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        psiText(context, psi: tyrePsi.psi.toString()),
-        const SizedBox(height: defaultPadding),
-        Text(
-          '${tyrePsi.temp}\u2103',
-          style: const TextStyle(fontSize:16 , color: Colors.white),
-        ),
-        const Spacer(),
-        lowPressureText(context),
-      ],
-    ),
+      children: getCompnentLayout(isBottomTwoTyre, context),
+      ),
     );
+  }
+
+  List<Widget> getCompnentLayout(bool isBottomTwoTyre, BuildContext context) {
+    if(isBottomTwoTyre) {
+      return <Widget>[
+        lowPressureText(context),
+        const Spacer(),
+        psiText(context, psi: tyrePsi.psi.toString()),
+        const SizedBox(height: defaultPadding),
+        Text(
+          '${tyrePsi.temp}\u2103',
+          style: const TextStyle(fontSize:16 , color: Colors.white),
+        ),
+      ];
+    }
+
+    return <Widget>[
+        psiText(context, psi: tyrePsi.psi.toString()),
+        const SizedBox(height: defaultPadding),
+        Text(
+          '${tyrePsi.temp}\u2103',
+          style: const TextStyle(fontSize:16 , color: Colors.white),
+        ),
+        const Spacer(),
+        lowPressureText(context),
+    ];
   }
 
   Column lowPressureText(BuildContext context) {
