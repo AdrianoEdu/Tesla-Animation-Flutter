@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:teslacaranimation/components/controller/buletooth_controller/bluetooth_controller.dart';
+
+import '../controller/buletooth_controller/bluetooth_controller.dart';
 
 final snackBarKeyB = GlobalKey<ScaffoldMessengerState>();
 
@@ -72,6 +73,11 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     bluetoothConfig();
 
@@ -111,8 +117,9 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
                     Container(
                       margin: const EdgeInsets.all(5),
                       color: Colors.grey.withOpacity(0.2),
-                      constraints: const BoxConstraints(minHeight: 40, minWidth: 200),
-                      child: Row(
+                      constraints: const BoxConstraints(minHeight: 40, minWidth: 180),
+                      child:
+                      Row(
                         children: [
                           Column(
                             children: [
@@ -120,6 +127,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
                               Text('Remote Id: ${e.device.remoteId.toString()}', style: const TextStyle(color: Colors.white, fontSize: 24)),
                             ],
                           ),
+                          const Spacer(),
                           Row(
                             children: [
                               IconButton(
@@ -128,19 +136,21 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
                                     final snackBar = SnackBar(content: Text(prettyException("Connect Error:", e)));
                                     snackBarKeyB.currentState?.showSnackBar(snackBar);
                                   });
+                                  setState(() {
+                                  });
                                 },
-                                icon: const Icon(Icons.connect_without_contact_sharp)
+                                icon: const Icon(Icons.connect_without_contact_sharp),
+                                color: Colors.white,
                               )
                             ],
                           )
                         ],
                       ),
-                    )
-
+                    ),
                   ],
-               )).toList(),
+               ),).toList(),
               ),
-            ),
+        ),
       ],
     );
   }

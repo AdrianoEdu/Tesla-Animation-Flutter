@@ -1,20 +1,20 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:teslacaranimation/components/shared/temp_details/temp_details.dart';
 import 'package:teslacaranimation/constants/Images.dart';
-import 'package:teslacaranimation/model/TyrePsi.dart';
+import 'package:teslacaranimation/controller/temp_controller/temp_controller.dart';
 import 'package:teslacaranimation/screens/bluetooth_screen.dart';
 
-import '../components/controller/home_controller/home_controller.dart';
 import '../constants/constants.dart';
 import '../components/shared/battery_status/batteryStatus.dart';
 import '../components/shared/door_lock/door_lock.dart';
 import '../components/shared/tyre_psi_card/tyre_psi_card.dart';
 import '../components/shared/tyres/tyres.dart';
+import '../controller/home_controller/home_controller.dart';
 import '../enum/enum.dart';
 import '../components/shared/testa_bottom_navigation/tesla_bottom_navigation.dart';
+import '../model/Tyre.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}): super(key: key);
@@ -25,6 +25,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
   final HomeController _controller = HomeController();
+  final TempController _tempController = TempController();
 
   late AnimationController _batteryAnimationController;
   late Animation<double> _animationBattery;
@@ -190,7 +191,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
         _controller,
         _batteryAnimationController,
         _tempAnimationController,
-        _tyreAnimationcontroller
+        _tyreAnimationcontroller,
+        _bluetoothAnimationController,
       ]),
       builder: (context, snapshot) {
         return Scaffold(
@@ -279,11 +281,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                       ),
                       itemBuilder: (context, index) => ScaleTransition(
                         scale: _tyreAnimations[index],
-                        child: TyrePsiCard(
-                          isBottomTwoTyre:
-                          index > 1,
-                          tyrePsi: demoPsiList[index]
-                        ),
+                        child: FutureBuilder<Tyre>(
+                            future: _tempController.getByIndex(index),
+                            initialData: Tyre(name: 'tyre', psi: 0, temp: 0, isLowPressure: false),
+                            builder: (context, snapshot) {
+                            Tyre tyre = snapshot.data ?? Tyre(name: 'tyre', psi: 0, temp: 0, isLowPressure: false);
+                            return TyrePsiCard(
+                                isBottomTwoTyre: index > 1,
+                                tyre: tyre,
+                            );
+                },
+              ),
                       ),
                     ),
                     Positioned(

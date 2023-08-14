@@ -16,7 +16,7 @@ class BluetoothController {
     try {
       if(FlutterBluePlus.isScanningNow == false) {
         await FlutterBluePlus.startScan(
-          timeout: const Duration(seconds: 4),
+          timeout: const Duration(seconds: 15),
           androidUsesFineLocation: false,
         );
       }

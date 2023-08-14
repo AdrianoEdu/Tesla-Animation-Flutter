@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants.dart';
-import '../../../model/TyrePsi.dart';
+import '../../../model/Tyre.dart';
 
 class TyrePsiCard extends StatelessWidget {
   const TyrePsiCard({
     Key? key,
     required this.isBottomTwoTyre,
-    required this.tyrePsi,
+    required this.tyre
   }): super(key: key);
 
   final bool isBottomTwoTyre;
-  final TyrePsi tyrePsi;
+  final Tyre tyre;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
-        color: tyrePsi.isLowPressure ? redColor.withOpacity(0.1) : Colors.white10,
+        color: tyre.isLowPressure ?? false ? redColor.withOpacity(0.1) : Colors.white10,
         border: Border.all(
-          color: tyrePsi.isLowPressure ? redColor : primaryColor,
+          color: tyre.isLowPressure ?? false ? redColor : primaryColor,
           width: 2,
         ),
         borderRadius: const BorderRadius.all(Radius.circular((6))),
@@ -38,20 +38,20 @@ class TyrePsiCard extends StatelessWidget {
       return <Widget>[
         lowPressureText(context),
         const Spacer(),
-        psiText(context, psi: tyrePsi.psi.toString()),
+        psiText(context, psi: tyre.psi.toString()),
         const SizedBox(height: defaultPadding),
         Text(
-          '${tyrePsi.temp}\u2103',
+          '${tyre.temp ?? '0'}\u2103',
           style: const TextStyle(fontSize:16 , color: Colors.white),
         ),
       ];
     }
 
     return <Widget>[
-        psiText(context, psi: tyrePsi.psi.toString()),
+        psiText(context, psi: tyre.psi.toString()),
         const SizedBox(height: defaultPadding),
         Text(
-          '${tyrePsi.temp}\u2103',
+          '${tyre.temp ?? '0'}\u2103',
           style: const TextStyle(fontSize:16 , color: Colors.white),
         ),
         const Spacer(),

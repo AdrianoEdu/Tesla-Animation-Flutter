@@ -1,0 +1,57 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:8475592078562126401",
+      "lastPropertyId": "6:456125844155052306",
+      "name": "Tyre",
+      "properties": [
+        {
+          "id": "1:1632797661024380226",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5740538060141877190",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:1399751980936939927",
+          "name": "psi",
+          "type": 8
+        },
+        {
+          "id": "4:8276396776084304369",
+          "name": "temp",
+          "type": 6
+        },
+        {
+          "id": "5:1244599015436944574",
+          "name": "isLowPressure",
+          "type": 1
+        },
+        {
+          "id": "6:456125844155052306",
+          "name": "date",
+          "type": 10
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:8475592078562126401",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
