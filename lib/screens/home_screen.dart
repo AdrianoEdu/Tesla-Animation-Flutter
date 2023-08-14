@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:teslacaranimation/components/shared/temp_details/temp_details.dart';
@@ -290,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                       height: constraints.maxHeight,
                       child: Opacity(
                         opacity: _bluetoothAnimationController.value,
-                        child: const BluetoothScreen(),
+                        child:  const BluetoothScreen(),
                       ),
                     )
                   ],
