@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:teslacaranimation/screens/home_screen/home_screen.dart';
 import 'constants/constants.dart';
 
-import 'screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());

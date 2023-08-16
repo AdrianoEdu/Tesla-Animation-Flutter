@@ -4,17 +4,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:teslacaranimation/components/shared/temp_details/temp_details.dart';
 import 'package:teslacaranimation/constants/Images.dart';
 import 'package:teslacaranimation/controller/temp_controller/temp_controller.dart';
-import 'package:teslacaranimation/screens/bluetooth_screen.dart';
+import 'package:teslacaranimation/screens/bluetooth_screen/bluetooth_screen.dart';
 
-import '../constants/constants.dart';
-import '../components/shared/battery_status/batteryStatus.dart';
-import '../components/shared/door_lock/door_lock.dart';
-import '../components/shared/tyre_psi_card/tyre_psi_card.dart';
-import '../components/shared/tyres/tyres.dart';
-import '../controller/home_controller/home_controller.dart';
-import '../enum/enum.dart';
-import '../components/shared/testa_bottom_navigation/tesla_bottom_navigation.dart';
-import '../model/Tyre.dart';
+import '../../constants/constants.dart';
+import '../../components/shared/battery_status/batteryStatus.dart';
+import '../../components/shared/door_lock/door_lock.dart';
+import '../../components/shared/tyre_psi_card/tyre_psi_card.dart';
+import '../../components/shared/tyres/tyres.dart';
+import '../../controller/home_controller/home_controller.dart';
+import '../../enum/enum.dart';
+import '../../components/shared/testa_bottom_navigation/tesla_bottom_navigation.dart';
+import '../../model/Tyre.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}): super(key: key);
