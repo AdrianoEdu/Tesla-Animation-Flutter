@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -149,7 +148,6 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
                         discoverServicesStatus = true;
                       });
                     } catch (e) {
-                      final snackBar = SnackBar(content: Text(prettyException("Discover Services Error:", e)));
                       print(prettyException("Discover Services Error:", e));
                     }
                   },
